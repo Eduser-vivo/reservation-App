@@ -32,7 +32,26 @@
     height: 120px;
 }
 
+@media (min-width: 576px) { 
+    #cardH{
+        width: 200px;
+    }
+ }
 
-.card{
-    max-width: 300px;
-}   
+@media (min-width: 768px) {
+    #cardH{
+        width: 200px;
+    }
+  }
+
+@media (min-width: 992px) { 
+    #cardH{
+        width: 200px;
+    }
+ }
+
+@media (min-width: 1200px) {
+    #cardH{
+        width: 200px;
+    }   
+ }

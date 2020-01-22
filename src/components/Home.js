@@ -20,7 +20,7 @@ export default class Home extends Component {
             <div className="row" id="homeCardContainer">
                 <div className="col-6">
               <Link to={{pathname:`/lignes`, state:{referer:'/'}}}>
-                    <div className="card" id="cardBus" >
+                    <div className="card" id="cardH" >
                         <div className="card-body">
                             
                         </div>
@@ -28,11 +28,13 @@ export default class Home extends Component {
               </Link>
                 </div>
                 <div className="col-6">
-                    <div className="card" id="cardRestaurant">
-                        <div className="card-body">
-                            
-                        </div>
-                    </div>
+                  <Link to={{pathname:`/menus`, state:{referer:'/'}}}>
+                      <div className="card" id="cardH" >
+                          <div className="card-body">
+                              
+                          </div>
+                      </div>
+                  </Link>
                 </div>
             </div>
             

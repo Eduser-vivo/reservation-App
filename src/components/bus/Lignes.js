@@ -11,7 +11,7 @@ class Lignes extends Component {
               <Link to={{pathname:`/`, state:{referer:"/lignes"}}}
                     style={{ color: "white", textDecoration: "none" }}
                   >
-                  retourn
+                  retour
               </Link>
           </button> 
              Lignes
@@ -29,13 +29,15 @@ class Lignes extends Component {
                     <small>prix:3000</small>
                   </div>
               </div>
-              <button className="btn btn-primary btn-sm btn-block"> 
-              <Link to={{pathname:`/horaires`, state:{ligne: 1, referer: "/lignes"}}}
-                   style={{ color: "white", textDecoration: "none" }}
-              >
-                 Les horaires disponibles
-              </Link>
-               </button>
+              <div className="card-footer">
+                <button className="btn btn-primary btn-sm btn-block"> 
+                <Link to={{pathname:`/horaires`, state:{ligne: 1, referer: "/lignes"}}}
+                    style={{ color: "white", textDecoration: "none" }}
+                >
+                  Les horaires disponibles
+                </Link>
+                </button>
+              </div>
           </div>
           <div className="card">
               <div className="card-header" >
@@ -47,13 +49,15 @@ class Lignes extends Component {
                     <small>prix:3000</small>
                   </div>
               </div>
-              <button className="btn btn-primary btn-sm btn-block"> 
-              <Link to={{pathname:`/horaires`, state:{ligne: 1, referer: "/lignes"}}}
-                   style={{ color: "white", textDecoration: "none" }}
-              >
-                 Les horaires disponibles
-              </Link>
-               </button>
+              <div className="card-footer">
+                <button className="btn btn-primary btn-sm btn-block"> 
+                <Link to={{pathname:`/horaires`, state:{ligne: 1, referer: "/lignes"}}}
+                    style={{ color: "white", textDecoration: "none" }}
+                >
+                  Les horaires disponibles
+                </Link>
+                </button>
+              </div>
           </div>
           <div className="card">
               <div className="card-header" >
@@ -65,13 +69,15 @@ class Lignes extends Component {
                     <small>prix:3000</small>
                   </div>
               </div>
-              <button className="btn btn-primary btn-sm btn-block"> 
-              <Link to={{pathname:`/horaires`, state:{ligne: 1, referer: "/lignes"}}}
-                   style={{ color: "white", textDecoration: "none" }}
-              >
-                 Les horaires disponibles
-              </Link>
-               </button>
+              <div className="card-footer">
+                <button className="btn btn-primary btn-sm btn-block"> 
+                <Link to={{pathname:`/horaires`, state:{ligne: 1, referer: "/lignes"}}}
+                    style={{ color: "white", textDecoration: "none" }}
+                >
+                  Les horaires disponibles
+                </Link>
+                </button>
+              </div>
           </div>
           <div className="card">
               <div className="card-header" >
@@ -83,13 +89,55 @@ class Lignes extends Component {
                     <small>prix:3000</small>
                   </div>
               </div>
-              <button className="btn btn-primary btn-sm btn-block"> 
-              <Link to={{pathname:`/horaires`, state:{ligne: 1, referer: "/lignes"}}}
-                   style={{ color: "white", textDecoration: "none" }}
-              >
-                 Les horaires disponibles
-              </Link>
-               </button>
+              <div className="card-footer">
+                <button className="btn btn-primary btn-sm btn-block"> 
+                <Link to={{pathname:`/horaires`, state:{ligne: 1, referer: "/lignes"}}}
+                    style={{ color: "white", textDecoration: "none" }}
+                >
+                  Les horaires disponibles
+                </Link>
+                </button>
+              </div>
+          </div>
+          <div className="card">
+              <div className="card-header" >
+                ligne1 lome-karasdzfefe"fe"fefefef"
+              </div>
+              <div className="card-body"> 
+                  <div className="ccard-text">
+                    <small>distance:200km </small> <br />
+                    <small>prix:3000</small>
+                  </div>
+              </div>
+              <div className="card-footer">
+                <button className="btn btn-primary btn-sm btn-block"> 
+                <Link to={{pathname:`/horaires`, state:{ligne: 1, referer: "/lignes"}}}
+                    style={{ color: "white", textDecoration: "none" }}
+                >
+                  Les horaires disponibles
+                </Link>
+                </button>
+              </div>
+          </div>
+          <div className="card">
+              <div className="card-header" >
+                ligne1 lome-karasdzfefe"fe"fefefef"
+              </div>
+              <div className="card-body"> 
+                  <div className="ccard-text">
+                    <small>distance:200km </small> <br />
+                    <small>prix:3000</small>
+                  </div>
+              </div>
+              <div className="card-footer">
+                <button className="btn btn-primary btn-sm btn-block"> 
+                <Link to={{pathname:`/horaires`, state:{ligne: 1, referer: "/lignes"}}}
+                    style={{ color: "white", textDecoration: "none" }}
+                >
+                  Les horaires disponibles
+                </Link>
+                </button>
+              </div>
           </div>
           
         </div>
