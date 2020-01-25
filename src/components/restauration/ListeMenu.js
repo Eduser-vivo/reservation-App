@@ -2,54 +2,79 @@ import React from 'react';
 import '../../asset/listemenu.css';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import {fetchMenuList} from '../../reudx/restauration/menuAction'
+import { Spinner } from 'react-bootstrap';
 
 class ListeMenu extends React.Component {
+
+    UNSAFE_componentWillMount(){
+        const {menus} = this.props.menus;
+        if(menus.length === 0 || menus === null){
+            this.props.fetchMenuList()
+        }
+    }
+
     render() {
+        const {menus, loading} = this.props.menus;
+        console.log(menus);
+        
+
         return (
             <div id="listeMenuContainer">
+
                 <div id="listeMenuTitle">
-                     <button className="btn btn-primary" id="backBtn">
+                    <div>
                      <Link to={{pathname:`/`, state:{referer:"/menus"}}}
                          style={{ color: "white", textDecoration: "none" }}
+                         className="btn btn-primary" id="backBtn"
                     >
-                        retour
+                        <i className="fas fa-long-arrow-alt-left"> </i> retour
                     </Link>
-                     </button>
                      Menus
+                    </div>
                 </div>
 
                 <div className="container" id="menusBody">
-                    <div className="card">
-                        <div className="card-header" >
-                            menu1 sdzfefe"fe"fefefef"
-                        </div>
-                        <div className="card-body"> 
-                            <div className="ccard-text">
-                                <small>ddescription ... ... ... </small>
-                            </div>
-                        </div>
-                        <div>
-                            <button className="btn btn-primary btn-sm btn-block"> 
-                            <Link to={{pathname:`/plat`, state:{ligne: 1, referer: "/menus"}}}
-                                style={{ color: "white", textDecoration: "none" }}
-                            >
-                                Les horaires disponibles
-                            </Link>
-                            </button>
-                        </div>
-                    </div>
+                    {
+                        loading ?(
+                            <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                        ):(
+                            (menus.length === 0 || menus === null)?("menu indisponible"):
+                            (menus.map((menu, index)=>(
+                                <div className="card" key={menu.id}>
+                                    <div className="card-header" >
+                                      <u>Menu<u></u></u> : {index+1} {menu.nom.substring(0, 50)}
+                                    </div>
+                                    <div className="card-body"> 
+                                        <div className="ccard-text">
+                                            <small>{menu.description.substring(0, 200)} </small>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <Link to={{pathname:`/plat`, state:{menu: index, plats:menu.plats, menus:menus, referer: "/menus"}}}
+                                            style={{ color: "white", textDecoration: "none" }}
+                                            className="btn btn-primary btn-sm btn-block"
+                                        >
+                                           Les plats du menu
+                                        </Link>
+                                    </div>
+                                </div>
+                            ))
+                        ))
+                    }
                 </div>
+
             </div>
         );
     }
 }
 
 const mapStateToProps = (state) => ({
-  
+  menus : state.menus
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  
-});
+const mapDispatchToProps = {
+    fetchMenuList,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListeMenu);

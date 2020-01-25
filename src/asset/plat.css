@@ -2,3 +2,16 @@
     display: flex;
     justify-content: space-between;
 }
+
+#listeMenuTitle{
+    display: flex;
+    justify-content: space-between;
+}
+
+#commandeBtn{
+    border-radius: 0;
+}
+
+#platCompte{
+    float: right;
+}

@@ -9,6 +9,9 @@
     padding: 0;
 }
 
+#homeNavBar{
+    float: right;
+}
 
 #homeHeader{
     width: 100%;
@@ -31,27 +34,3 @@
 #cardRestaurant, #cardBus{
     height: 120px;
 }
-
-@media (min-width: 576px) { 
-    #cardH{
-        width: 200px;
-    }
- }
-
-@media (min-width: 768px) {
-    #cardH{
-        width: 200px;
-    }
-  }
-
-@media (min-width: 992px) { 
-    #cardH{
-        width: 200px;
-    }
- }
-
-@media (min-width: 1200px) {
-    #cardH{
-        width: 200px;
-    }   
- }

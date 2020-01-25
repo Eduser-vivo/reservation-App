@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../asset/home.css';
 import { Link } from 'react-router-dom';
+import NavBar from './NavBar';
 
 export default class Home extends Component {
   render() {
@@ -8,6 +9,9 @@ export default class Home extends Component {
       <div id="homeConteneur">
 
           <div className="container-fluid" id="homeHeader">
+            <div id="homeNavBar">
+              <NavBar />
+            </div>
             <div id="homeHeaderMsg">
                 <h3>Bienvenue</h3>
                 <span>Veuillez cliquer sur Bus pour accéder aux lignes disponible</span>
@@ -22,7 +26,7 @@ export default class Home extends Component {
               <Link to={{pathname:`/lignes`, state:{referer:'/'}}}>
                     <div className="card" id="cardH" >
                         <div className="card-body">
-                            
+                            <i className="fas fa-bus fa-6x" ></i>
                         </div>
                     </div>
               </Link>
@@ -31,7 +35,7 @@ export default class Home extends Component {
                   <Link to={{pathname:`/menus`, state:{referer:'/'}}}>
                       <div className="card" id="cardH" >
                           <div className="card-body">
-                              
+                              <div><i className="fas fa-utensils fa-6x" /> </div>
                           </div>
                       </div>
                   </Link>

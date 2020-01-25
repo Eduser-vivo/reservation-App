@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './asset/fontawesome-free/css/all.min.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
@@ -10,11 +11,19 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import logger from "redux-logger";
 import thunk from 'redux-thunk';
 import {reducer as formReducer } from 'redux-form';
+import { lignesReducer, reservationBusReducer} from './reudx/bus/busReducer';
+import { menuReducer } from './reudx/restauration/menuReducer';
+import { loginReducer, getClientReducer } from './reudx/log/loginReducer';
 
 
 
 const rootReducer = combineReducers({
     form: formReducer,
+    lignes: lignesReducer,
+    reservationBus: reservationBusReducer,
+    menus : menuReducer,
+    login : loginReducer,
+    client : getClientReducer
 })
 
 const store = createStore(rootReducer, applyMiddleware(logger, thunk));
