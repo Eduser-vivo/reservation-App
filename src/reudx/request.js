@@ -1,9 +1,10 @@
 import Axios from "axios";
+import service from '../service/service';
 
-const API_ROOT = 'http://192.168.1.20:8000/api';
+const API_ROOT = 'http://localhost:8000/api';
 const responseBody  = response => response.data;
 
 export const request ={
-    get: (url)=> Axios.get(`${API_ROOT}${url}`).then(responseBody),
-    post: (url, data = null)=> Axios.post(`${API_ROOT}${url}`, data).then(responseBody)
+    get: (url)=> Axios.get(`${API_ROOT}${url}`, service.getAuthHeader()).then(responseBody),
+    post: (url, data = null)=> Axios.post(`${API_ROOT}${url}`, data, service.getAuthHeader()).then(responseBody)
 }

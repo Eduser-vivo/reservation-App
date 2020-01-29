@@ -20,15 +20,22 @@ const RerserveForm = (props) => {
         console.log(idClient);
         
         props.fetchBusReservation(idHoraie, idClient);
+
     }
 
-    console.log(props.location);
-
     const isLog = props.logInfo.isLog;
+    const reservStatus = props.reservationBus.isOK
+    console.log(reservStatus);
+    
 
     if(!isLog){
         return (<Redirect to={{ pathname: "/connexion", state: { referer: '/lignes' } }} />);
     }
+
+    if(reservStatus){
+        return (<Redirect to={{pathname:'/historiquebus', state:{ referer:'/reservation'}}}  />);
+    }
+
     
     return (
         <div >
@@ -49,7 +56,8 @@ const RerserveForm = (props) => {
 
 const mapStateToProps = (state) => ({
     logInfo: state.login,
-    client : state.client
+    client : state.client,
+    reservationBus : state.reservationBus
 });
 
 const mapDispatchToProps  ={

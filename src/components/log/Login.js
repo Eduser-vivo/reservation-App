@@ -9,6 +9,14 @@ import JwtDecode from 'jwt-decode';
 
 const Login = (props) => {
 
+
+    const check = props.location.state;
+    if(check === null || check === undefined || check.length === 0){
+        return <Redirect to={{pathname:`/`}} />
+    }
+
+  
+
    const onSubmit=(values)=>{
        const formData = {
            username : values.username,

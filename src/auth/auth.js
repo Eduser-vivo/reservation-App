@@ -16,6 +16,14 @@ class AuthService{
     getLog(){
         return JSON.parse(window.localStorage.getItem("isLog"));
     }
+
+    setClient(client){
+        window.localStorage.setItem("client", client);
+    }
+
+    getClient(){
+        return JSON.parse(window.localStorage.getItem("client"));
+    }
     
 }
 export default new AuthService();

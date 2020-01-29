@@ -54,9 +54,10 @@ export  const fetchLogin = (formData) =>{
  }
 
  export const fetchClientSuccess =(client)=>{
+     AuthService.setClient(client["hydra:member"][0].client.id);
      return{
          type: FETCH_CLIENT_SUCCESS,
-         payload: client["hydra:member"][0].client
+         payload: client["hydra:member"][0].client.id
      }
  }
 

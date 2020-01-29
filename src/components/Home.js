@@ -26,7 +26,7 @@ export default class Home extends Component {
               <Link to={{pathname:`/lignes`, state:{referer:'/'}}}>
                     <div className="card" id="cardH" >
                         <div className="card-body">
-                            <i className="fas fa-bus fa-6x" ></i>
+                            <i className="fas fa-bus fa-5x" ></i>
                         </div>
                     </div>
               </Link>
@@ -35,7 +35,7 @@ export default class Home extends Component {
                   <Link to={{pathname:`/menus`, state:{referer:'/'}}}>
                       <div className="card" id="cardH" >
                           <div className="card-body">
-                              <div><i className="fas fa-utensils fa-6x" /> </div>
+                              <div><i className="fas fa-utensils fa-5x" /> </div>
                           </div>
                       </div>
                   </Link>

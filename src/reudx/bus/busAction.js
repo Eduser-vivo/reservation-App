@@ -4,7 +4,11 @@ import {
     FETCH_BUS_LIGNES_FAILURE,
     FETCH_BUS_RESERVATION_REQUEST,
     FETCH_BUS_RESERVATION_SUCCESS,
-    FETCH_BUS_RESERVATION_FAILURE, 
+    FETCH_BUS_RESERVATION_FAILURE,
+    FETCH_BUS_RESERVATION_HISTO_REQUEST,
+    FETCH_BUS_RESERVATION_HISTO_SUCCESS,
+    FETCH_BUS_RESERVATION_HISTO_FAILURE, 
+    SET_RESERVATION_STATUS_FALSE    
 } from "../actionsType"
 import { request } from "../request";
 
@@ -17,6 +21,7 @@ export const fetchBusLigneRequest = () =>{
     }
 }
 export const fetchBusLigneSuccess = (data) =>{
+    
     return{
         type: FETCH_BUS_LIGNES_SUCCESS,
         payload: data["hydra:member"]
@@ -60,13 +65,14 @@ export const fetchBusReservationFailure = (error) =>{
     }
 }
 
+
 export const fetchBusReservation = (idHoraire, idClient) =>{
     return (dispatch)=>{
         dispatch(fetchBusReservationRequest());
         return request.post(`/reservation_buses`, 
             {
-                horaire : `/horaires/${idHoraire}`,
-                client : `/clients/${idClient}`
+                horaire : `api/horaires/${idHoraire}`,
+                client : `api/clients/${idClient}`
             }
         
         ).then(
@@ -75,6 +81,48 @@ export const fetchBusReservation = (idHoraire, idClient) =>{
     }
 }
 
+
+/**
+ * historiques
+ */
+
+ export const fetchHistoBusRequest = ()=>{
+     return{
+         type: FETCH_BUS_RESERVATION_HISTO_REQUEST
+     }
+ }
+ export const fetchHistoBusSuccess = (data)=>{
+    return{
+        type: FETCH_BUS_RESERVATION_HISTO_SUCCESS,
+        payload: data["hydra:member"]
+    }
+ }
+ export const fetchHistoBusFailure = (error)=>{
+    return{
+        type: FETCH_BUS_RESERVATION_HISTO_FAILURE,
+        payload: error
+    }
+ }
+
+
+ export const setConfirmationreservfalse = ()=>{
+     return{
+         type: SET_RESERVATION_STATUS_FALSE
+     }
+ }
+
+ export const fetchHistoBus =(idClient)=>{
+     console.log(idClient);
+     
+     return (dispatch)=>{
+         dispatch(fetchHistoBusRequest());
+         return request.get(`/reservation_buses?client.id=${idClient}&page=1&itemsPerPage=30`).then(
+             response => dispatch(fetchHistoBusSuccess(response))
+         ).catch(
+             error => dispatch(fetchHistoBusFailure(error))
+         )
+     }
+ }
 
 
 

@@ -4,17 +4,21 @@ import {
      FETCH_BUS_LIGNES_FAILURE,
      FETCH_BUS_RESERVATION_REQUEST,
      FETCH_BUS_RESERVATION_SUCCESS,
-     FETCH_BUS_RESERVATION_FAILURE, 
+     FETCH_BUS_RESERVATION_FAILURE,
+     FETCH_BUS_RESERVATION_HISTO_REQUEST,
+     FETCH_BUS_RESERVATION_HISTO_SUCCESS,
+     FETCH_BUS_RESERVATION_HISTO_FAILURE,
+     SET_RESERVATION_STATUS_FALSE, 
 } from "../actionsType";
 
 
-const initialState ={
+const initialState1 ={
     loading: false,
     data : [],
     error : '',
 }
 
-export const lignesReducer = (state = initialState ,  action)=>{
+export const lignesReducer = (state = initialState1 ,  action)=>{
     switch (action.type) {
         case FETCH_BUS_LIGNES_REQUEST: return{
             ...state,
@@ -42,12 +46,21 @@ export const lignesReducer = (state = initialState ,  action)=>{
 }
 
 
-export const reservationBusReducer = (state = initialState, action)=>{
+const initialState2 ={
+    loading: false,
+    data : [],
+    isOK : false,
+    error : '',
+}
+
+
+export const reservationBusReducer = (state = initialState2, action)=>{
     switch (action.type) {
         case FETCH_BUS_RESERVATION_REQUEST: return{
             ...state,
             loading : true,
             data: [],
+            isOK: false,
             error:'',
         }
             
@@ -55,6 +68,7 @@ export const reservationBusReducer = (state = initialState, action)=>{
             ...state,
             loading:false,
             data: action.payload,
+            isOK :true,
             error: '',
         };
 
@@ -62,9 +76,50 @@ export const reservationBusReducer = (state = initialState, action)=>{
             ...state,
             loading: false,
             data: [],
+            isOK :false,
             error: action.payload
+        }
+
+        case SET_RESERVATION_STATUS_FALSE: return{
+            ...state,
+            loading:false,
+            isOK: false,
+            error:''
         }
     
         default: return state;
+    }
+}
+
+
+const initialState3 = {
+    loading: false,
+    data: [],
+    error:''
+}
+
+export const historiquebusReducer = (state = initialState3, action)=>{
+    switch (action.type) {
+        case FETCH_BUS_RESERVATION_HISTO_REQUEST: return{
+            ...state,
+            loading: true,
+            data : [],
+            error: ''
+        }
+
+        case FETCH_BUS_RESERVATION_HISTO_SUCCESS: return{
+            ...state,
+            loading: false,
+            data : action.payload,
+            error: '',
+        }
+            
+        case FETCH_BUS_RESERVATION_HISTO_FAILURE: return{
+            ...state,
+            loading: false,
+            data : [],
+            error: action.payload,
+        }
+        default:return state;
     }
 }

@@ -47,7 +47,7 @@ export const loginReducer  = (state = initialState, action)=>{
 }
 
 
-export const getClientReducer = (state= { loading: false, data: [], error: ''}, action)=> {
+export const getClientReducer = (state= { loading: false, data: AuthService.getClient(), error: ''}, action)=> {
     switch (action.type) {
         case FETCH_CLIENT_REQUEST: return{
             ...state,

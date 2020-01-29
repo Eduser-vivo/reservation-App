@@ -1,7 +1,13 @@
-import { FETCH_MENU_LIST_REQUEST, FETCH_MENU_LIST_SUCCESS, FETCH_MENU_LIST_FAILURE } from "../actionsType"
+import { FETCH_MENU_LIST_REQUEST,
+     FETCH_MENU_LIST_SUCCESS,
+      FETCH_MENU_LIST_FAILURE, 
+} from "../actionsType"
 import { request } from "../request"
 
 
+/**
+ * Menu list
+ */
 export const fetchMenuListRequest = () =>{
     return{
         type: FETCH_MENU_LIST_REQUEST

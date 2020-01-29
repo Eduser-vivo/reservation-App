@@ -44,7 +44,7 @@ class Lignes extends Component {
                     <u>Ligne<u></u></u> : {index+1} {ligne.nom.substring(0, 50)}
                   </div>
                   <div className="card-body"> 
-                      <div className="ccard-text">
+                      <div className="card-text">
                         <small>distance: {ligne.distance} km </small> <br />
                         <small>point depart: {ligne.pointDepart.substring(0, 50)} </small> <br />
                         <small>point arrive: {ligne.pointArrivee.substring(0, 50)}  </small> <br />
