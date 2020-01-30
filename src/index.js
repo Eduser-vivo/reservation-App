@@ -14,7 +14,7 @@ import {reducer as formReducer } from 'redux-form';
 import { lignesReducer, reservationBusReducer, historiquebusReducer} from './reudx/bus/busReducer';
 import { menuReducer } from './reudx/restauration/menuReducer';
 import { loginReducer, getClientReducer } from './reudx/log/loginReducer';
-import { panierReducer, createReservReducer, insertPanierReducer } from './reudx/restauration/panierReducer';
+import {createReservReducer, cardReducer } from './reudx/restauration/panierReducer';
 
 
 
@@ -26,12 +26,11 @@ const rootReducer = combineReducers({
     login : loginReducer,
     client : getClientReducer,
     histoBus : historiquebusReducer,
-    panier : panierReducer,
     createreservation : createReservReducer,
-    insertPanier : insertPanierReducer
+    cardReducer: cardReducer,
 })
 
-const store = createStore(rootReducer, applyMiddleware(logger, thunk));
+const store = createStore(rootReducer, applyMiddleware(logger,thunk));
 
 ReactDOM.render((
     <Provider store={store}>

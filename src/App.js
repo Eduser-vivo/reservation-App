@@ -15,6 +15,7 @@ import Logout from './components/log/Logout';
 import {fetchLoginSuccess, fetchLoginFailure} from './reudx/log/logAction';
 import HistoriqueBus from './components/bus/HistoriqueBus';
 import Monpanier from './components/restauration/Monpanier';
+import { HistoriquePlat } from './components/restauration/HistoriquePlat';
 
 
 
@@ -56,6 +57,7 @@ class App extends Component {
           <Route path="/reservation" component={ReserveForm} exact />
           <Route path="/historiquebus" component={HistoriqueBus} exact />
           <Route path="/monpanier" component={Monpanier} exact />
+          <Route path="/historiqueplats" component={HistoriquePlat} exact />
         </Switch>
       </div>
     );

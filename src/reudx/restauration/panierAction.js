@@ -1,24 +1,60 @@
 import { 
-    AJOUT_PLAT,
-    INSERT_PANIER_REQUEST,
-    INSERT_PANIER_SUCCESS,
-    INSERT_PANIER_FAILURE,
     CREATION_RESERVATION_REQUEST,
     CREATION_RESERVATION_SUCCESS,
     CREATION_RESERVATION_FAILURE,
     CLEAR_OLD_RESERVATION_DATA,
-    SET_RESERVATION_PLAT_STATUS,
+    AJOUT_PLAT,
+    RETRAIT_PLAT,
+    AJOUT_QUANT,
+    RETRAIT_QUANT,
  } from "../actionsType"
 import { request } from "../request"
 
+/**
+ * panierAdd
+ */
 
-export const addPanier = (data) =>{
-    return{
-        type: AJOUT_PLAT,
-        payload: data
+ export const addToPanier = (plat, id) =>{
+     return{
+         type: AJOUT_PLAT,
+         id,
+         plat
+     }
+ }
+
+ /**
+  * retrait plat
+  */
+
+  export const removeItem = (id) =>{
+     return{
+         type: RETRAIT_PLAT,
+         id
+     }
+  }
+
+  /**
+   * ajout qant
+   */
+
+
+   export const addQuantity = (id)=>{
+        return{
+            type: AJOUT_QUANT,
+            id
+        }
+   }
+
+   /**
+    * retrait quant
+    */
+
+    export const subtractQuantity = (id)=>{
+        return{
+            type: RETRAIT_QUANT,
+            id
+        }
     }
-}
-
 
 /**
  * CreationReservation
@@ -51,12 +87,15 @@ export const addPanier = (data) =>{
     }
  }
 
- export const creationReservation = (idClient)=>{
+ export const creationReservation = (idClient, paniers )=>{
      return (dispatch)=>{
          dispatch(createReservationRequest());
+         console.log(paniers);
+         
          return request.post(`/reservations`, 
          {
-            client : `api/clients/${idClient}`
+            client : `api/clients/${idClient}`,
+            panier : paniers
          }
          ).then(
              response => dispatch(creationReservationSuccess(response))
@@ -66,42 +105,5 @@ export const addPanier = (data) =>{
      } 
  }
 
-/**
- * addReservationplat
- */
 
-export const insertPanierRequest = () =>{
-    return{
-        type: INSERT_PANIER_REQUEST
-    }
-}
-export const insertPanierSuccess = (data) =>{
-    return{
-        type: INSERT_PANIER_SUCCESS,
-        payload : data
-    }
-}
-export const insertPanierFailure = (error) =>{
-    return{
-        type: INSERT_PANIER_FAILURE,
-        payload: error
-    }
-}
-
-
-export const setReservationPlat = ()=>{
-    return{
-        type: SET_RESERVATION_PLAT_STATUS
-    }
-}
-
-
-export const insertPanier = (panier, idReservation)=>{
-    return (dispatch)=>{
-        dispatch(insertPanierRequest());
-            request.post(`/reservation_plats`, {
-
-            })
-    }
-}
 

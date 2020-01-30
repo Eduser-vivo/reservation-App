@@ -72,5 +72,7 @@ export const SET_RESERVATION_PLAT_STATUS = 'SET_RESERVATION_PLAT_STATUS';
  */
 export const  AJOUT_PLAT = 'AJOUT_PLAT';
 export const  RETRAIT_PLAT = 'RETRAIT_PLAT';
+export const  AJOUT_QUANT = 'AJOUT_QUANT';
+export const  RETRAIT_QUANT = 'RETRAIT_QUANT';
 
 export const LOG_OUT = 'LOG_OUT';

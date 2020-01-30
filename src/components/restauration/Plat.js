@@ -3,81 +3,57 @@ import '../../asset/plat.css';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import service from '../../service/service';
-import { addPanier, insertPanier, creationReservation, cleanOldReservData, setReservationPlat } from '../../reudx/restauration/panierAction';
+import { creationReservation, cleanOldReservData, addToPanier } from '../../reudx/restauration/panierAction';
 
 class Plat extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            panier : this.props.panier,
+            panier : []
         }
     }
 
     UNSAFE_componentWillMount(){
-        const panier = this.state.panier;
-        if(panier === null || panier === "undefined"){
-            this.setState({panier : []});
-            service.setPanier([])
-        }
+       
     }
 
-
-    componentDidUpdate(prevProps){
-        const panier = this.state.panier;
-        const oldPanier = prevProps.panier;
-    
-        if(oldPanier !== panier){
-            service.setPanier(this.state.panier);
-        } 
+    addPanier(plat, id){        
+        this.props.addToPanier(plat, id);
     }
 
-    addPanier(newPanier){
-        
-        this.setState({panier : this.state.panier.concat(newPanier) });
-        this.props.addPanier(newPanier);
-    }
-
-    reserver(paniers){
+    reserver(addItems){
         const idClient = this.props.client.data;
-        this.props.reservation(idClient);
-        console.log(idClient);    
+        this.props.reservation(idClient, addItems);
     }
 
     render() {
+        const addItems = this.props.cardReducer.addedItems
+        const shoppings = this.props.cardReducer.shoppings
 
-        const panier = this.state.panier
-        console.log(this.state);
-        console.log(this.props);
+        console.log(addItems);
+        console.log(shoppings);
         
         const check = this.props.location.state;
+        const plats = this.props.location.state.plats;
+        
+
         if(check === null || check === undefined || check.length === 0){
             return <Redirect to={{pathname:`/menus`}} />
         }
-
+        if(plats === null || plats === undefined || plats.length === 0){
+            return <Redirect to={{pathname:`/menus`}} />
+        }
         const menu = this.props.location.state.menu;
-        const plats = this.props.location.state.plats;
         const reserOk = this.props.creatReserv.isReserv;
-        const idReserv = this.props.creatReserv.data.id;
-        const insertStatus = this.props.insertPanier.isAdd;
 
         console.log(reserOk);
-        console.log(idReserv);
-        console.log(insertStatus);
-        
-        
-
         if(reserOk){
-            this.props.addReservation(panier);
-            this.props.cleanOldReserv();
-        }
-
-        if(insertStatus){
-            this.props.inserPanierStatus();
+            return <Redirect to={{pathname:`historiqueplats`}} />
         }
 
         return (
             <div id="platContainer">
-                <div id="listeMenuTitle">
+                <div id="listeMenuTitle" className="nav-wrapper">
                     <div>
                         <Link to={{pathname:`/menus`, state:{referer:"/plat"}}}
                             style={{ color: "white", textDecoration: "none" }}
@@ -91,8 +67,8 @@ class Plat extends React.Component {
                        <Link to={{pathname:`monpanier`, state:{ referer: "/plat"}}}
                              style={{ color: "white", textDecoration: "none" }}
                             >
-                           { (this.state.panier !== null)&&
-                           <small>{this.state.panier.length}</small>
+                           { (addItems !== null)&&
+                           <small>{addItems.length}</small>
                            }
                           <i className="fa fa-cart-plus" aria-hidden="true"></i>
                        </Link>
@@ -115,16 +91,15 @@ class Plat extends React.Component {
                                         </div>
                                     </div>
                                     <div className="card-footer" id="platAjout">
-                                        <div><button className="btn btn-outline-primary btn-sm" onClick={()=> this.addPanier(plat)} >ajouter+</button></div>
-                                        {/* <div><button className="btn btn-outline-secondary btn-sm">retirer-</button> </div> */}
+                                        <div><button className="btn btn-outline-primary btn-sm" onClick={()=> this.addPanier(plats, plat['@id'])} >ajouter+</button></div>
                                     </div>
                                 </div>
                      ))
                         )
                     }
                     {
-                        (panier.length !== 0 ) &&
-                        <button className="btn btn-success" id="acheterBtn" onClick={()=>this.reserver(panier)} > 
+                        (addItems.length !== 0 ) &&
+                        <button className="btn btn-success" id="acheterBtn" onClick={()=>this.reserver(addItems)} > 
                           <i className="far fa-check-circle fa-1x"></i>
                           reserver
                         </button>
@@ -138,18 +113,14 @@ class Plat extends React.Component {
 
 
 const mapStateToProps = (state) => ({
-  panier: state.panier.panier,
   client : state.client,
   creatReserv : state.createreservation,
-  insertPanier : state.insertPanier
+  cardReducer : state.cardReducer
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addPanier : (x)=>dispatch(addPanier(x)),
-  addReservation : (y)=> dispatch(insertPanier(y)),
-  reservation : (z)=> dispatch(creationReservation(z)),
-  cleanOldReserv : () => dispatch(cleanOldReservData()),
-  inserPanierStatus: ()=> dispatch(setReservationPlat())
+  reservation : (z, x)=> dispatch(creationReservation(z, x)),
+  addToPanier : (plat, id) => dispatch(addToPanier(plat,id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Plat);
