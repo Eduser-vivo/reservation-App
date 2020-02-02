@@ -9,27 +9,25 @@ import ListeMenu from './components/restauration/ListeMenu';
 import Plat from './components/restauration/Plat';
 import Login from './components/log/Login';
 import ReserveForm from './components/bus/ReserveForm';
-import {fetchBusLignes} from './reudx/bus/busAction';
-import {fetchMenuList} from './reudx/restauration/menuAction'
 import Logout from './components/log/Logout';
-import {fetchLoginSuccess, fetchLoginFailure} from './reudx/log/logAction';
 import HistoriqueBus from './components/bus/HistoriqueBus';
 import Monpanier from './components/restauration/Monpanier';
-import { HistoriquePlat } from './components/restauration/HistoriquePlat';
-
+import HistoriquePlat from './components/restauration/HistoriquePlat';
+import PrivateRoute from './components/PrivateRoute';
 
 
 function mapStateToProps(state) {
   return {
-    Log : state.login
+    Log : state.login,
+    menus : state.menus,
+    lignes : state.menus
   };
 }
 
-const mapDispatchToProps = {
-  fetchBusLignes,
-  fetchMenuList,
-  fetchLoginSuccess,
-  fetchLoginFailure
+const mapDispatchToProps =(dispatch)=> {
+  return{
+
+  }
 }
 
 class App extends Component {
@@ -37,27 +35,29 @@ class App extends Component {
   UNSAFE_componentWillMount(){
     const isLog = this.props.Log.isLog;
     if(!isLog){
+      
       return <Redirect to={{pathname:`/connexion`, state:{referer :`/`} }} />
     }
-    this.props.fetchMenuList();
-    this.props.fetchBusLignes();
+
   }
+  
 
   render() {
+    const isAuth = this.props.Log.isLog;
     return (
       <div id="appContent">
         <Switch>
-          <Route path="/" component={Home} exact/>
-          <Route path="/lignes" component={Lignes} exact />
-          <Route path="/horaires/:id" component={Horaires} exact />
-          <Route path="/menus" component={ListeMenu} exact />
-          <Route path="/connexion" component={Login} />
-          <Route path="/deconnexion" component={Logout} />
-          <Route path="/plat" component={Plat} exact />
-          <Route path="/reservation" component={ReserveForm} exact />
-          <Route path="/historiquebus" component={HistoriqueBus} exact />
-          <Route path="/monpanier" component={Monpanier} exact />
-          <Route path="/historiqueplats" component={HistoriquePlat} exact />
+          <PrivateRoute path="/" component={Home} isAuth={isAuth} exact/>
+          <PrivateRoute path="/lignes" component={Lignes} isAuth={isAuth} exact />
+          <PrivateRoute path="/horaires/:id" component={Horaires} isAuth={isAuth} exact />
+          <PrivateRoute path="/menus" component={ListeMenu} isAuth={isAuth} exact />
+          <PrivateRoute path="/plat" component={Plat} exact isAuth={isAuth} />
+          <PrivateRoute path="/reservation" component={ReserveForm} isAuth={isAuth} exact />
+          <PrivateRoute path="/historique-bus" component={HistoriqueBus} isAuth={isAuth} exact />
+          <PrivateRoute path="/panier" component={Monpanier} isAuth={isAuth} exact />
+          <PrivateRoute path="/historique-plats" component={HistoriquePlat} isAuth={isAuth} exact />
+          <Route path="/connexion" component={Login} isAuth={isAuth} />
+          <Route path="/deconnexion" component={Logout} isAuth={isAuth} />
         </Switch>
       </div>
     );

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import '../../asset/lignes.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {fetchBusLignes} from '../../reudx/bus/busAction';
+import { fetchlogout } from '../../reudx/log/logAction';
 
 
 class Lignes extends Component {
@@ -12,11 +13,21 @@ class Lignes extends Component {
     if(lignes.length === 0 || lignes === null){
       this.props.fetchBusLignes();
     }
+    
   }
   
   render() {
     const lignes = this.props.lignes.data;
     const loading = this.props.lignes.loading;
+    
+    const lignesError = this.props.lignes.error;
+    console.log(lignesError);
+    
+    if(lignesError === 401){
+      this.props.fetchlogout();
+      return <Redirect to={{pathname:`/connexion`, state: {status:401, referer: `/`}}} />
+    }
+
     console.log(lignes);
     return (
       <div id="lignesContainer">
@@ -77,8 +88,11 @@ function mapStateToProps(state) {
 }
 
 
-const mapDispatchToProps = {
-  fetchBusLignes,
+const mapDispatchToProps = (dispatch)=>{
+  return{
+    fetchBusLignes: ()=> dispatch(fetchBusLignes()),
+    fetchlogout : ()=> dispatch(fetchlogout())
+  }
 }
 
 

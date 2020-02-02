@@ -6,9 +6,10 @@ import {
     AJOUT_PLAT,
     RETRAIT_PLAT,
     AJOUT_QUANT,
-    RETRAIT_QUANT
+    RETRAIT_QUANT,
+    SET_RENEW_ERROR_STATUS
      } from "../actionsType";
-
+import service from "../../service/service";
 
 
 
@@ -47,21 +48,51 @@ export const createReservReducer = (state = initialState2, action)=>{
 
         case CLEAR_OLD_RESERVATION_DATA: return{
             ...state, 
-            isReserv: false
+            isReserv: false,
+            error: ''
+        }
+
+        case SET_RENEW_ERROR_STATUS: return{
+            ...state,
+            error: ''
         }
         default: return state;
     }
 }
 
+const monPanier = ()=>{
+    const p = service.getPostPanier();
+    if(p === null || typeof(p)=== 'undefined'){
+        return [];
+    }else{
+        return p;
+    }
+}
 
-export const initialState3 = {
-    addedItems : [],
-    shoppings : [],
+const monShop=()=>{
+    const p = service.getPanier();
+    if(p === null || typeof(p) === 'undefined'){
+        return [];
+    }else{
+        return p;
+    }
+}
+
+ const initialState3 = {
+    addedItems : monPanier(),
+    shoppings : monShop(),
 }
 
 export const cardReducer = (state = initialState3, action)=>{
+    if(action.type === CLEAR_OLD_RESERVATION_DATA){
+        return{
+            addedItems : [],
+            shoppings: []
+        }
+    }
     
     if(action.type === AJOUT_PLAT){
+        
         let items = action.plat;
         
         let addedOneItem = items.find(item => item['@id'] === action.id);
@@ -80,14 +111,18 @@ export const cardReducer = (state = initialState3, action)=>{
                 existed_item.quantite += 1;
                 existed_item_shop.quantite += 1;
                 
-                
+                service.setPanier(state.shoppings);
+                service.setPostPanier(state.addedItems);
                 return{
-                    ...state
+                    ...state,
+                    addedItems : [...state.addedItems],
+                    shoppings : [...state.shoppings]
                 }
             }else{
                 panier.quantite = 1
                 shop.quantite = 1
-                
+                service.setPanier([...state.shoppings, shop]);
+                service.setPostPanier([...state.addedItems, panier]);
                 return{
                     addedItems : [...state.addedItems, panier],
                     shoppings : [...state.shoppings, shop]
@@ -98,13 +133,14 @@ export const cardReducer = (state = initialState3, action)=>{
     }
     if(action.type === RETRAIT_PLAT){
         let itemToRemove = state.addedItems.find(item => action.id === item.plat);
-        let itemToRemoveShop = state.shoppings.find(item => action.id === item.plat['@id']);
+        // let itemToRemoveShop = state.shoppings.find(item => action.id === item.plat['@id']);
 
         if(itemToRemove){
 
             let new_items = state.addedItems.filter(item => action.id !== item.plat);
             let new_items_shop = state.shoppings.filter(item => action.id !== item.plat['@id']);
-
+            service.setPanier(new_items_shop);
+            service.setPostPanier(new_items);
             return{
                 ...state,
                 addedItems : new_items,
@@ -120,7 +156,8 @@ export const cardReducer = (state = initialState3, action)=>{
 
         existed_item.quantite += 1;
         existed_item_shop.quantite += 1;
-
+        service.setPanier(state.shoppings);
+        service.setPostPanier(state.addedItems);
         return{
             ...state
         }
@@ -132,7 +169,8 @@ export const cardReducer = (state = initialState3, action)=>{
         if(existed_item.quantite === 1){
             let new_items = state.addedItems.filter(item => action.id !== item.plat);
             let new_items_shop = state.shoppings.filter(item => action.id !== item.plat['@id']);
-
+            service.setPanier(new_items_shop);
+            service.setPostPanier(new_items);
             return{
                 ...state,
                 addedItems : new_items,
@@ -141,7 +179,8 @@ export const cardReducer = (state = initialState3, action)=>{
         }else{
             existed_item.quantite -= 1;
             existed_item_shop.quantite -= 1;
-
+            service.setPanier(state.shoppings);
+            service.setPostPanier(state.addedItems);
             return{
                 ...state
             }

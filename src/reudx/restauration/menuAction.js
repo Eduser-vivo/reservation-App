@@ -1,8 +1,12 @@
 import { FETCH_MENU_LIST_REQUEST,
      FETCH_MENU_LIST_SUCCESS,
-      FETCH_MENU_LIST_FAILURE, 
+      FETCH_MENU_LIST_FAILURE,
+      FETCH_HISTO_RESERVATION_REQUEST,
+      FETCH_HISTO_RESERVATION_SUCCESS,
+      FETCH_HISTO_RESERVATION_FAILURE, 
 } from "../actionsType"
 import { request } from "../request"
+
 
 
 /**
@@ -35,7 +39,49 @@ export const fetchMenuList = () =>{
         return request.get(`/menus`).then(
             response => dispatch(fetchMenuListSuccess(response))
         ).catch(
-            error => dispatch(fetchMenuListFailure(error))
+            error => {
+                const isError = error.response && error.response.status ;
+                dispatch(fetchMenuListFailure(isError))
+            }
         );
     }
 }
+
+
+/**
+ * historique reservation
+ */
+
+ export const fetchHistoReservRequest = ()=>{
+     return{
+        type: FETCH_HISTO_RESERVATION_REQUEST,
+     }
+ }
+
+ export const fetchHistoReservSuccess = (data)=>{
+     return{
+        type: FETCH_HISTO_RESERVATION_SUCCESS,
+        payload : data["hydra:member"]
+     }
+ }
+
+ export const fetchHistoReservFailure = (error)=>{
+     return{
+        type: FETCH_HISTO_RESERVATION_FAILURE,
+        payload : error
+     }
+ }
+
+ export const fetchHistoReserv = (idClient)=>{
+    return (dispatch)=>{
+        dispatch(fetchHistoReservRequest());
+        return request.get(`/reservations?client.id=${idClient}`).then(
+            response => dispatch(fetchHistoReservSuccess(response))
+        ).catch(
+            error => {
+                const isError = error.response && error.response.status ;
+                dispatch(fetchHistoReservFailure(isError))
+            }
+        )
+    }   
+ }

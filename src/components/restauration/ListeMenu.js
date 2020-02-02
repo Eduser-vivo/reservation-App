@@ -1,9 +1,10 @@
 import React from 'react';
 import '../../asset/listemenu.css';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import {fetchMenuList} from '../../reudx/restauration/menuAction'
 import { Spinner } from 'react-bootstrap';
+import { fetchlogout } from '../../reudx/log/logAction';
 
 class ListeMenu extends React.Component {
 
@@ -16,9 +17,14 @@ class ListeMenu extends React.Component {
 
     render() {
         const {menus, loading} = this.props.menus;
-        console.log(menus);
+        const menuError = this.props.menus.error;
+        console.log(menuError);
         
-
+        if(menuError === 401){
+              this.props.fetchlogout();
+              return <Redirect to={{pathname:`/connexion`, state: {status:401, referer: `/`}}} />
+        }
+      
         return (
             <div id="listeMenuContainer">
 
@@ -73,8 +79,11 @@ const mapStateToProps = (state) => ({
   menus : state.menus
 });
 
-const mapDispatchToProps = {
-    fetchMenuList,
+const mapDispatchToProps =(dispatch)=> {
+    return{
+        fetchMenuList: ()=> dispatch(fetchMenuList()),
+        fetchlogout : ()=> dispatch(fetchlogout())
+    }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListeMenu);

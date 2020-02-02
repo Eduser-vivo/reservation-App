@@ -7,7 +7,7 @@ import { Link, Redirect } from 'react-router-dom';
 
 class Horaires extends React.Component {
     render() {
-
+            
         const check = this.props.location.state;
         if(check === null || check === undefined || check.length === 0){
             return <Redirect to={{pathname:`/lignes`}} />

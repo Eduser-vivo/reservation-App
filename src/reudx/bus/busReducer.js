@@ -8,7 +8,8 @@ import {
      FETCH_BUS_RESERVATION_HISTO_REQUEST,
      FETCH_BUS_RESERVATION_HISTO_SUCCESS,
      FETCH_BUS_RESERVATION_HISTO_FAILURE,
-     SET_RESERVATION_STATUS_FALSE, 
+     SET_RESERVATION_STATUS_FALSE,
+     SET_RENEW_ERROR_STATUS, 
 } from "../actionsType";
 
 
@@ -18,6 +19,9 @@ const initialState1 ={
     error : '',
 }
 
+/**
+ * ligne bus
+ */
 export const lignesReducer = (state = initialState1 ,  action)=>{
     switch (action.type) {
         case FETCH_BUS_LIGNES_REQUEST: return{
@@ -54,6 +58,9 @@ const initialState2 ={
 }
 
 
+/**
+ * reservation bus
+ */
 export const reservationBusReducer = (state = initialState2, action)=>{
     switch (action.type) {
         case FETCH_BUS_RESERVATION_REQUEST: return{
@@ -86,6 +93,7 @@ export const reservationBusReducer = (state = initialState2, action)=>{
             isOK: false,
             error:''
         }
+        
     
         default: return state;
     }
@@ -120,6 +128,12 @@ export const historiquebusReducer = (state = initialState3, action)=>{
             data : [],
             error: action.payload,
         }
+
+        case SET_RENEW_ERROR_STATUS: return{
+            ...state,
+            error : '',
+        }
+        
         default:return state;
     }
 }

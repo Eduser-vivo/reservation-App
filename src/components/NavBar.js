@@ -14,11 +14,13 @@ const NavBar = (props) => {
                 <button className="btn">
                     {
                         isLog?(
-                            <Link to={{pathname:`/deconnexion`, state:{referer : '/'}}}  style={{color:"#fff"}}>
+                            <Link to={{pathname:`/deconnexion`, state:{referer : '/'}}}  style={{color:"#fff"}}
+                             className="btn btn-outline-warning btn-sm">
                              deconnexion
                        </Link> 
                         ) :(
-                            <Link to={{pathname:`/connexion`, state:{referer : '/'}}}  style={{color:"#fff"}}>
+                            <Link to={{pathname:`/connexion`, state:{referer : '/'}}}  style={{color:"#fff"}}
+                            className="btn btn-outline-success btn-sm">
                             connexion
                           </Link>
                       )

@@ -100,7 +100,10 @@ import { request } from "../request"
          ).then(
              response => dispatch(creationReservationSuccess(response))
          ).catch(
-             error => dispatch(creationReservationFailure(error))
+            error =>{
+                const errorStatus = error.response && error.response.status;
+                 dispatch(creationReservationFailure(errorStatus))
+            }
          )
      } 
  }

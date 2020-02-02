@@ -8,9 +8,11 @@ import {
     FETCH_BUS_RESERVATION_HISTO_REQUEST,
     FETCH_BUS_RESERVATION_HISTO_SUCCESS,
     FETCH_BUS_RESERVATION_HISTO_FAILURE, 
-    SET_RESERVATION_STATUS_FALSE    
+    SET_RESERVATION_STATUS_FALSE,    
+    SET_RENEW_ERROR_STATUS
 } from "../actionsType"
 import { request } from "../request";
+
 
 /**
  * Ligne bus
@@ -39,7 +41,10 @@ export const fetchBusLignes = () =>{
         dispatch(fetchBusLigneRequest());
         return request.get(`/ligne_buses`).then(
             response=> dispatch(fetchBusLigneSuccess(response))
-        ).catch(error => dispatch(fetchBusLignesFailure(error)))
+        ).catch(error => {
+            const isError = error.response && error.response.status ;
+            dispatch(fetchBusLignesFailure(isError))
+        })
     }
 }
 
@@ -77,7 +82,10 @@ export const fetchBusReservation = (idHoraire, idClient) =>{
         
         ).then(
             response=> dispatch(fetchBusReservationSuccess(response))
-        ).catch(error => dispatch(fetchBusReservationFailure(error)))
+        ).catch(error => {
+            const isError = error.response && error.response.status ;
+            dispatch(fetchBusReservationFailure(isError))
+        })
     }
 }
 
@@ -111,6 +119,12 @@ export const fetchBusReservation = (idHoraire, idClient) =>{
      }
  }
 
+ export const setErrorStatus = ()=>{
+     return{
+         type: SET_RENEW_ERROR_STATUS
+     }
+ }
+
  export const fetchHistoBus =(idClient)=>{
      console.log(idClient);
      
@@ -119,7 +133,10 @@ export const fetchBusReservation = (idHoraire, idClient) =>{
          return request.get(`/reservation_buses?client.id=${idClient}&page=1&itemsPerPage=30`).then(
              response => dispatch(fetchHistoBusSuccess(response))
          ).catch(
-             error => dispatch(fetchHistoBusFailure(error))
+            error => {
+                const isError = error.response && error.response.status ;
+                dispatch(fetchHistoBusFailure(isError))
+            }
          )
      }
  }

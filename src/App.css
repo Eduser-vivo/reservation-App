@@ -1,10 +1,13 @@
 body{
-  background-image: url('/images/background2.jpg');
   font-family: fantasy;
+  font-size: 12px;
 }
 
 
 @media (min-width: 1200px) { 
+  body{
+    font-size: 17px;
+  }
   #appContent{
     width: 100%;
     margin: auto;
@@ -26,6 +29,10 @@ body{
 }
 
 @media (min-width: 992px) { 
+  body{
+    font-size: 17px;
+  }
+
   #appContent{
     width: 100%;
     margin: auto;
@@ -49,6 +56,12 @@ body{
 }
 
   @media (min-width: 768px) {
+    
+    body{
+      font-size: 17px;
+    }
+
+    
     #appContent{
       width: 100%;
       margin: auto;

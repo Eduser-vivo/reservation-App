@@ -8,6 +8,8 @@ import {
     FETCH_CLIENT_FAILURE } from "../actionsType"
 import {request} from '../request';
 import AuthService from '../../auth/auth'
+import Axios from "axios";
+import {API_ROOT} from '../request';
 
 
 export  const fetchLoginRequest = () =>{
@@ -36,9 +38,13 @@ export  const fetchLoginFailure = (error) =>{
 export  const fetchLogin = (formData) =>{
   return (dispatch) =>{
       dispatch(fetchLoginRequest());
-      return request.post(`/login_check`, formData).then(
-          response => dispatch(fetchLoginSuccess(response))
-      ).catch(error => dispatch(fetchLoginFailure(error)))
+      return Axios.post(`${API_ROOT}/login_check`, formData).then(
+          response => dispatch(fetchLoginSuccess(response.data))
+      ).catch(error => {
+          const isError401 = error.response &&error.response.status;
+
+        dispatch(fetchLoginFailure(isError401))
+      })
   }
 }
 
@@ -90,5 +96,4 @@ export const fetchlogout = ()=>{
         type: LOG_OUT
     }
 }
-
 

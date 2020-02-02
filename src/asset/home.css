@@ -34,3 +34,8 @@
 #cardRestaurant, #cardBus{
     height: 120px;
 }
+
+#mesHistorique{
+    float: left;
+    padding-top: 5px;
+}

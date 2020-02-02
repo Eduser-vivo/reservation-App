@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { Redirect } from 'react-router';
-import {fetchBusReservation} from '../../reudx/bus/busAction';
+import {fetchBusReservation, setErrorStatus} from '../../reudx/bus/busAction';
+import { fetchlogout } from '../../reudx/log/logAction';
 
 
 
@@ -24,18 +25,20 @@ const RerserveForm = (props) => {
     }
 
     const isLog = props.logInfo.isLog;
-    const reservStatus = props.reservationBus.isOK
+    const reservStatus = props.reservationBus.isOK;
+    const errorStatus = props.reservationBus.error;
     console.log(reservStatus);
     
 
-    if(!isLog){
-        return (<Redirect to={{ pathname: "/connexion", state: { referer: '/lignes' } }} />);
+    if(!isLog || errorStatus === 401){
+        props.fetchlogout();
+        props.setErrorStatus();
+        return (<Redirect to={{ pathname: "/connexion", state: {status:401, referer: '/lignes' } }} />);
     }
 
     if(reservStatus){
-        return (<Redirect to={{pathname:'/historiquebus', state:{ referer:'/reservation'}}}  />);
+        return (<Redirect to={{pathname:'/historique-bus', state:{ referer:'/reservation'}}}  />);
     }
-
     
     return (
         <div >
@@ -60,8 +63,12 @@ const mapStateToProps = (state) => ({
     reservationBus : state.reservationBus
 });
 
-const mapDispatchToProps  ={
-    fetchBusReservation,
+const mapDispatchToProps =(dispatch)=>{
+    return{
+        fetchBusReservation: (idH, idCl)=> dispatch(fetchBusReservation(idH, idCl)),
+        fetchlogout: ()=> dispatch(fetchlogout()),
+        setErrorStatus: ()=> dispatch(setErrorStatus())
+    }
 };
 
 export default reduxForm({

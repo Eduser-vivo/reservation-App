@@ -15,9 +15,21 @@ class Service{
   setPanier(panier){
     window.localStorage.setItem("panier",  JSON.stringify(panier));
   }
+  setPostPanier(panier){
+    window.localStorage.setItem("postPanier",  JSON.stringify(panier));
+  }
 
   getPanier(){
     return JSON.parse(window.localStorage.getItem("panier"));
+  }
+  
+  getPostPanier(){
+    return JSON.parse(window.localStorage.getItem("postPanier"));
+  }
+
+  cleanPanier(){
+    window.localStorage.removeItem('panier');
+    window.localStorage.removeItem('postPanier');
   }
 
   getAuthHeader(){
