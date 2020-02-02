@@ -14,6 +14,7 @@ import HistoriqueBus from './components/bus/HistoriqueBus';
 import Monpanier from './components/restauration/Monpanier';
 import HistoriquePlat from './components/restauration/HistoriquePlat';
 import PrivateRoute from './components/PrivateRoute';
+import SignUp from './components/log/SignUp';
 
 
 function mapStateToProps(state) {
@@ -57,6 +58,7 @@ class App extends Component {
           <PrivateRoute path="/panier" component={Monpanier} isAuth={isAuth} exact />
           <PrivateRoute path="/historique-plats" component={HistoriquePlat} isAuth={isAuth} exact />
           <Route path="/connexion" component={Login} isAuth={isAuth} />
+          <Route path="/inscription" component={SignUp} isAuth={isAuth} />
           <Route path="/deconnexion" component={Logout} isAuth={isAuth} />
         </Switch>
       </div>

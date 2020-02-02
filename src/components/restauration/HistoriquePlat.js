@@ -40,7 +40,7 @@ class HistoriquePlat extends React.Component {
             {
               histo && (histo.length !== 0 && histo !== null)&& histo.map((item) =>(
                 item.panier.map(element =>(
-                      <div className="card mb-4 mt-4 shadow-sm" id="histoCard"  key={element.id}>
+                      <div className="card mb-4 mt-4 shadow-sm" id="histoCard1"  key={element.id}>
                         <div className="card-body">
                           <div className="card-title border-bottom">
                             <small> {element.plat.nom.substring(0, 20)} </small><br/>

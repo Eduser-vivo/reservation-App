@@ -5,7 +5,11 @@ import {
     LOG_OUT,
     FETCH_CLIENT_REQUEST,
     FETCH_CLIENT_SUCCESS,
-    FETCH_CLIENT_FAILURE } from "../actionsType"
+    FETCH_CLIENT_FAILURE, 
+    FETCH_SIGNUP_REQUEST,
+    FETCH_SIGNUP_SUCCESS,
+    FETCH_SIGNUP_FAILURE,
+    SET_SIGNUP_STATUS} from "../actionsType"
 import {request} from '../request';
 import AuthService from '../../auth/auth'
 import Axios from "axios";
@@ -97,3 +101,52 @@ export const fetchlogout = ()=>{
     }
 }
 
+
+/**
+ * inscription
+ */
+
+ export const fetchSignUpRequest = ()=>{
+     return{
+         type: FETCH_SIGNUP_REQUEST
+     }
+ }
+
+ 
+ export const fetchSignUpSuccess = (data)=>{
+     return{
+         type: FETCH_SIGNUP_SUCCESS,
+         payload: data
+     }
+ }
+
+ export const fetchSignUpFailure = (errorStatus, errorMessages)=>{
+     return{
+         type: FETCH_SIGNUP_FAILURE,
+         errorStatus,
+         errorMessages
+     }
+ }
+
+ export const setSignUpStatus = ()=>{
+     return{
+         type: SET_SIGNUP_STATUS
+     }
+ }
+
+export const fetchSignUp = (data)=> {
+    return dispatch =>{
+        dispatch(fetchSignUpRequest())
+        return request.post(`/users`, data).then(
+            response => dispatch(fetchSignUpSuccess(response))
+        ).catch(
+            error => {
+                const  errorStatus = error.response && error.response.status;
+                if(errorStatus === 400){
+                    const errorMessages = error.response && error.response.data["violations"];
+                    dispatch(fetchSignUpFailure(errorStatus, errorMessages))
+                }
+            }
+        )
+    }
+} 

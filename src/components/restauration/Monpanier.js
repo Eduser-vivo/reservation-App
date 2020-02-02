@@ -58,15 +58,7 @@ if(errorStatus === 401){
   return (
     <div>
 
-      <div>
-        {
-            (shoppings.length !== 0 ) &&
-            <button className="btn btn-success" id="acheterBtn" onClick={()=>reserver(addedItems)} > 
-              <i className="far fa-check-circle fa-1x"></i>
-              reserver
-            </button>
-        }
-      </div>
+     
         <div id="bodyhistoReserv">
           {
             (shoppings.length === 0 || shoppings === null)?(
@@ -75,7 +67,7 @@ if(errorStatus === 401){
               </div>
             ):(
               shoppings.map(plat =>(
-                <div className="card mb-4 mt-4 shadow-sm" id="histoCard" key={plat.plat.id}>
+                <div className="card mb-4 mt-4 shadow-sm" id="histoCard2" key={plat.plat.id}>
                     <div className="card-body">
                         <div className="card-title border-bottom">
                             <small>{plat.plat.nom.substring(0, 30)} </small><br/>
@@ -106,6 +98,15 @@ if(errorStatus === 401){
                   </Link>
                   Mon panier
               </div>
+          </div>
+          <div id="reserver-btn">
+            {
+                (shoppings.length !== 0 ) &&
+                <button className="btn btn-success" onClick={()=>reserver(addedItems)} > 
+                  <i className="far fa-check-circle fa-1x"></i>
+                  reserver
+                </button>
+            }
           </div>
         
     </div>

@@ -39,7 +39,7 @@ class HistoriqueBus extends React.Component {
                       >
                      <i className="fas fa-long-arrow-alt-left"></i> retour
                     </Link>
-                    Vos reservation de bus
+                    Vos reservations de bus
                 </div>
     
                 <div id="histoBus" className="container">

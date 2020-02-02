@@ -11,13 +11,20 @@
     max-width: 1000px;
     top: 50px;
     position: relative;
+    margin: auto;
 }
 
-#histoCard{
+#histoCard1{
+    margin: 0 auto;
+    width: 750px;
+    height: 115px;
+    margin-left: 15px;
+}
+#histoCard2{
     margin: 0 auto;
     width: 750px;
     height: 150px;
-    margin-left: 10px;
+    margin-left: 30px;
 }
 
 #alert-login{
@@ -29,3 +36,11 @@
 .pan-action{
     margin-right: 3px;
 }
+
+#reserver-btn{
+    position: absolute;  
+    position: fixed; 
+    bottom: 10px;
+    right: 5px;
+}
+

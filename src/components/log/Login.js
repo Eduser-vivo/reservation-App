@@ -64,7 +64,7 @@ const Login = (props) => {
                             {
                                 (message === 401)&&(
                                     <div id="alert-login">
-                                        <span className="alert alert-warning float-center" role="alert" > temps de connexion expiré, veuillez vous reconnecter</span>
+                                        <span className="alert alert-warning float-center" role="alert" > temps de connexion expiré, veuillez vous reconnecter </span>
                                     </div>
                                 )
                             }
@@ -77,12 +77,16 @@ const Login = (props) => {
                 <div className="container" id="formContainer">
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <legend id="legendLogin">
+                            <i class="fas fa-user-circle fa-3x"></i><br/>
                                { loading && <i className="fas fa-spinner fa-spin" ></i>}
-                                connexion</legend>
+                                CONNEXION</legend>
                             <Field name="username" label="Nom d'utilisateur" type="text" placeholder="nom d'utilisateur" component={renderField} />
                             <Field name="password" label="Mot de passe" type="password" placeholder="mot de passe" component={renderField} />
-                            <button className="btn btn-primary btn-block" type="submit">connexion</button>
+                            <button className="btn btn-primary btn-block" type="submit"><i className="fas fa-sign-in-alt "> connexion </i> </button>
                         </form>
+                            {
+                                <span>Vous n'avez pas de compte? <Link to={{pathname:`/inscription`}}> inscrivez vous</Link></span>
+                            }
                 </div>
             </div>
         </Fragment>

@@ -4,7 +4,11 @@ import { FETCH_LOGIN_REQUEST,
      LOG_OUT, 
      FETCH_CLIENT_SUCCESS,
       FETCH_CLIENT_FAILURE, 
-      FETCH_CLIENT_REQUEST } from "../actionsType";
+      FETCH_CLIENT_REQUEST, 
+      FETCH_SIGNUP_REQUEST,
+      FETCH_SIGNUP_SUCCESS,
+      FETCH_SIGNUP_FAILURE,
+      SET_SIGNUP_STATUS} from "../actionsType";
 import AuthService from '../../auth/auth';
 
 
@@ -86,5 +90,48 @@ export const getClientReducer = (state= { loading: false, data: AuthService.getC
             error: action.payload
         }
         default:return state;
+    }
+}
+
+
+export const signUpReducer = (state = {loading : false, data: [], errorStatus : '', errorMessages : [], isSign: false}, action) =>{
+    switch (action.type) {
+        case FETCH_SIGNUP_REQUEST:return{
+            ...state,
+            loading: true,
+            data: [],
+            errorStatus: '',
+            errorMessages: [],
+            isSign : false,
+        }
+
+        case FETCH_SIGNUP_SUCCESS : return{
+            ...state,
+            loading: false,
+            data: action.payload,
+            errorStatus: '',
+            errorMessages: [],
+            isSign: true,
+        }
+
+        case FETCH_SIGNUP_FAILURE: return{
+            ...state,
+            loading: false,
+            data: [],
+            errorStatus: action.errorStatus,
+            errorMessages: action.errorMessages,
+            isSign: false
+        }
+
+        case SET_SIGNUP_STATUS: return{
+            ...state,
+            loading : false,
+            data:[],
+            errorMessages: [],
+            errorStatus:'',
+            isSign: false
+        }
+
+        default: return state;
     }
 }

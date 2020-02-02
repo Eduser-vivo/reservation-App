@@ -13,7 +13,7 @@ import thunk from 'redux-thunk';
 import {reducer as formReducer } from 'redux-form';
 import { lignesReducer, reservationBusReducer, historiquebusReducer} from './reudx/bus/busReducer';
 import { menuReducer, histoReservReducer } from './reudx/restauration/menuReducer';
-import { loginReducer, getClientReducer } from './reudx/log/loginReducer';
+import { loginReducer, getClientReducer, signUpReducer } from './reudx/log/loginReducer';
 import {createReservReducer, cardReducer } from './reudx/restauration/panierReducer';
 
 
@@ -28,6 +28,7 @@ const rootReducer = combineReducers({
     createreservation : createReservReducer,
     cardReducer: cardReducer,
     histoReserv : histoReservReducer,
+    signUp : signUpReducer
 })
 
 const store = createStore(rootReducer, applyMiddleware(logger,thunk));
