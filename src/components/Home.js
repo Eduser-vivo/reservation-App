@@ -29,9 +29,9 @@ class Home extends Component {
               <div id="mesHistorique">
 
                  <Link to={{pathname:`/historique-plats`}}>
-                     <button className="btn btn-outline-light btn-sm" >mes plats</button> </Link>
+                     <button className="btn btn-light btn-sm" >mes plats</button> </Link>
                  <Link to={{pathname:`/historique-bus`}}>
-                    <button className="btn btn-outline-light btn-sm"  >mes lignes </button> </Link>
+                    <button className="btn btn-light btn-sm"  >mes lignes </button> </Link>
               </div>
               <div id="homeNavBar">
                 <NavBar />
@@ -47,18 +47,19 @@ class Home extends Component {
           <div className="container" id="homeBody">
 
             <div className="row" id="homeCardContainer">
-                <div className="col-6">
-              <Link to={{pathname:`/lignes`, state:{referer:'/'}}}>
-                    <div className="card" id="cardH" >
-                        <div className="card-body">
-                            <i className="fas fa-bus fa-5x" ></i>
-                        </div>
-                    </div>
-              </Link>
-                </div>
+              <div className="col-6">
+                <Link to={{pathname:`/lignes`, state:{referer:'/'}}}>
+                      <div className="card mb-4 mt-4 shadow-sm" id="cardH" >
+                          <div className="card-body">
+                              <i className="fas fa-bus fa-5x" ></i>
+                          </div>
+                      </div>
+                </Link>
+              </div>
+
                 <div className="col-6">
                   <Link to={{pathname:`/menus`, state:{referer:'/'}}}>
-                      <div className="card" id="cardH" >
+                      <div className="card mb-4 mt-4 shadow-sm" id="cardH" >
                           <div className="card-body">
                               <div><i className="fas fa-utensils fa-5x" /> </div>
                           </div>

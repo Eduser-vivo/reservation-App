@@ -47,7 +47,11 @@ class Lignes extends Component {
           loading ?(
             <i className="fa fas-spinner fa-spin"></i> 
           ) :(
-            (lignes.length === 0 || lignes === null)?("aucune ligne active"):(
+            (lignes.length === 0 || lignes === null)?(
+              <div id="alert-login">
+                  <span className="alert alert-secondary float-center" role="alert" > pas de ligne active </span>
+              </div>
+            ):(
 
               lignes.map((ligne, index) =>(
                 <div className="card mb-4 mt-4 shadow-sm" key={ligne.id}>
@@ -62,7 +66,7 @@ class Lignes extends Component {
                         <small> {ligne.montant} </small><br/>
                       </div>
                       <div className="card-text">
-                        <Link to={{pathname:`/horaires/${index+1}`, state:{ligne: index, ligneNom: ligne.nom, LigneHoraires:ligne.horaires, referer: "/lignes"}}}
+                        <Link to={{pathname:`/horaires/${index+1}`, state:{ligne: index, id: ligne.id, ligneNom: ligne.nom, LigneHoraires:ligne.horaires, referer: "/lignes"}}}
                             style={{ color: "white", textDecoration: "none" }}
                             className="btn btn-primary btn-sm btn-block"
                         >

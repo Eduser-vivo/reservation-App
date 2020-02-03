@@ -38,7 +38,11 @@ class HistoriquePlat extends React.Component {
         <div className="container" id="bodyhistoReserv">
 
             {
-              histo && (histo.length !== 0 && histo !== null)&& histo.map((item) =>(
+              histo && (histo.length !== 0 && histo !== null)?(
+                <div id="alert-login">
+                  <span className="alert alert-secondary float-center" role="alert" > vous n'avez effectué aucune reservation </span>
+              </div>
+              ):( histo.map((item) =>(
                 item.panier.map(element =>(
                       <div className="card mb-4 mt-4 shadow-sm" id="histoCard1"  key={element.id}>
                         <div className="card-body">
@@ -52,7 +56,7 @@ class HistoriquePlat extends React.Component {
                       </div>
                   </div>
                 ))
-              )
+              ))
 
 
   )

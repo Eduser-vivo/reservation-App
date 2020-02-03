@@ -3,7 +3,8 @@ import { FETCH_MENU_LIST_REQUEST,
       FETCH_MENU_LIST_FAILURE,
       FETCH_HISTO_RESERVATION_REQUEST,
       FETCH_HISTO_RESERVATION_SUCCESS,
-      FETCH_HISTO_RESERVATION_FAILURE, 
+      FETCH_HISTO_RESERVATION_FAILURE,
+      tdate, 
 } from "../actionsType"
 import { request } from "../request"
 
@@ -32,11 +33,10 @@ export const fetchMenuListFailure = (error) =>{
     }
 }
 
-
 export const fetchMenuList = () =>{
     return dispatch =>{
         dispatch(fetchMenuListRequest());
-        return request.get(`/menus`).then(
+        return request.get(`/menus?dateValidite[after]=${tdate}&page=1&itemsPerPage=30`).then(
             response => dispatch(fetchMenuListSuccess(response))
         ).catch(
             error => {
@@ -75,7 +75,7 @@ export const fetchMenuList = () =>{
  export const fetchHistoReserv = (idClient)=>{
     return (dispatch)=>{
         dispatch(fetchHistoReservRequest());
-        return request.get(`/reservations?client.id=${idClient}`).then(
+        return request.get(`/reservations?client.id=${idClient}&dateReservation[after]=${tdate}&page=1&itemsPerPage=30`).then(
             response => dispatch(fetchHistoReservSuccess(response))
         ).catch(
             error => {

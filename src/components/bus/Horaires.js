@@ -4,22 +4,43 @@ import { connect } from 'react-redux';
 import Popup from 'reactjs-popup';
 import ReserveForm from './ReserveForm';
 import { Link, Redirect } from 'react-router-dom';
+import { fetchHoraire, fetchHostaireStatus } from '../../reudx/bus/busAction';
+
 
 class Horaires extends React.Component {
-    render() {
-            
+
+    UNSAFE_componentWillMount(){
         const check = this.props.location.state;
         if(check === null || check === undefined || check.length === 0){
             return <Redirect to={{pathname:`/lignes`}} />
         }
 
+        const id = this.props.location.state.id;
+    
+        if(typeof(id) === 'undefined' || id === null){
+            return <Redirect to={{pathname:`lignes`}} />
+        }else{
+            this.props.horaire(id);
+        }
+    }
 
+    render() {
+            
 
         const horaires = this.props.location.state.LigneHoraires;
+
+        const valideHoraire = this.props.horaires.data;
+        const loading = this.props.horaires.loading;
+
+        const horaireError = this.props.horaires.error;
+        if(horaireError === 401){
+            this.props.fetchHostaireStatus();
+            return <Redirect to={{pathname:`connexion`, state:{status:401, referer:`/horaire`}}} />
+        }
+
         const ligne = this.props.location.state.ligne;
         const ligneNom = this.props.location.state.ligneNom;
         console.log(horaires);
-
         
         return (
             <div id="horairesContainer">
@@ -34,10 +55,19 @@ class Horaires extends React.Component {
                 </div>
                 <div className="container" id="horairesBody">
                     {
-                        (horaires.length === 0 || horaires === null)?("aucun horaire disponible "):(
+                        loading ? (
+                            <div>
+                                <i className="fa fas-spinner fa-spin"> </i> 
+                            </div>
+                        ):(
+                        (valideHoraire.length === 0 || valideHoraire === null)?(
+                            <div id="alert-login">
+                                <span className="alert alert-secondary float-center" role="alert" > pas d'horaire disponible </span>
+                            </div>
+                        ):(
 
-                        horaires.map((horaire, index) =>(
-                            <div className="card mb-4 mt-4 shadow-sm" key={horaire.id}>
+                            valideHoraire.map((horaire, index) =>(
+                            <div className="card mb-4 mt-4 shadow-sm" id="cardHoraire" key={horaire.id}>
                             <div className="card-body"> 
                                 <div className="card-title border-bottom">
                                     <u>Horraire {index+1}:</u> {horaire.nom.substring(0, 15 )}
@@ -60,7 +90,7 @@ class Horaires extends React.Component {
                             </div>
                         </div> 
                         ))   
-                        )
+                        ))
                     }
 
                    
@@ -72,12 +102,15 @@ class Horaires extends React.Component {
 
 const mapStateToProps = (state) =>{
     return{
-        horaires : state.horaires
+        horaires : state.horaire
     }
 };
 
-const mapDispatchToProps = {
-  
+const mapDispatchToProps = dispatch=> {
+  return{
+      horaire : (id)=> dispatch(fetchHoraire(id)),
+      fetchHostaireStatus: ()=> dispatch(fetchHostaireStatus())
+  }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Horaires);

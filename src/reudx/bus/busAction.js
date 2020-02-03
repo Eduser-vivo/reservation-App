@@ -9,7 +9,12 @@ import {
     FETCH_BUS_RESERVATION_HISTO_SUCCESS,
     FETCH_BUS_RESERVATION_HISTO_FAILURE, 
     SET_RESERVATION_STATUS_FALSE,    
-    SET_RENEW_ERROR_STATUS
+    SET_RENEW_ERROR_STATUS,
+    tdate,
+    FETCH_HORAIRE_VALIDE_REQUEST,
+    FETCH_HORAIRE_VALIDE_SUCCESS,
+    FETCH_HORAIRE_VALIDE_FAILURE,
+    FETCH_HORAIRE_STATUS
 } from "../actionsType"
 import { request } from "../request";
 
@@ -39,7 +44,7 @@ export const fetchBusLignesFailure = (error) =>{
 export const fetchBusLignes = () =>{
     return (dispatch)=>{
         dispatch(fetchBusLigneRequest());
-        return request.get(`/ligne_buses`).then(
+        return request.get(`/ligne_buses?dateValidite[after]=${tdate}&page=1&itemsPerPage=30`).then(
             response=> dispatch(fetchBusLigneSuccess(response))
         ).catch(error => {
             const isError = error.response && error.response.status ;
@@ -130,7 +135,7 @@ export const fetchBusReservation = (idHoraire, idClient) =>{
      
      return (dispatch)=>{
          dispatch(fetchHistoBusRequest());
-         return request.get(`/reservation_buses?client.id=${idClient}&page=1&itemsPerPage=30`).then(
+         return request.get(`/reservation_buses?client.id=${idClient}&dateReservation[after]=${tdate}&page=1&itemsPerPage=30`).then(
              response => dispatch(fetchHistoBusSuccess(response))
          ).catch(
             error => {
@@ -143,4 +148,47 @@ export const fetchBusReservation = (idHoraire, idClient) =>{
 
 
 
+/**
+ * get horaire with id
+ */
 
+ export const fetchHoraireRequest = ()=>{
+     return{
+         type: FETCH_HORAIRE_VALIDE_REQUEST
+     }
+ }
+
+ 
+ export const fetchHoraireSuccess = (data)=>{
+     return{
+         type: FETCH_HORAIRE_VALIDE_SUCCESS,
+         payload : data["hydra:member"]
+     }
+ }
+
+ export const fetchHoraireFailure = (error)=>{
+     return{
+         type: FETCH_HORAIRE_VALIDE_FAILURE,
+         payload: error
+     }
+ }
+
+ export const fetchHostaireStatus = ()=>{
+     return{
+         type: FETCH_HORAIRE_STATUS
+     }
+ }
+
+ export const fetchHoraire = (id)=>{
+     return dispatch =>{
+         dispatch(fetchHoraireRequest());
+         return request.get(`/horaires?dateValidite[after]=${tdate}&lignebus.id=${id}&page=1&itemsPerPage=30`).then(
+             response => dispatch(fetchHoraireSuccess(response))
+         ).catch(
+             error =>{
+                 const ErrorStatus = error.response && error.response.status;
+                 dispatch(fetchHoraireFailure(ErrorStatus))
+             }
+         )
+     }
+ }

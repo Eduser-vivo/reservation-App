@@ -1,7 +1,7 @@
 import Axios from "axios";
 import service from '../service/service';
 
- export const API_ROOT = 'http://localhost:8000/api';
+ export const API_ROOT = 'http://192.168.1.8:8000/api';
 const responseBody  = response => response.data;
 
 export const request ={

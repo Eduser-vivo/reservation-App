@@ -4,7 +4,6 @@ import { reduxForm } from 'redux-form';
 import { Redirect } from 'react-router';
 import {fetchBusReservation, setErrorStatus} from '../../reudx/bus/busAction';
 import { fetchlogout } from '../../reudx/log/logAction';
-import '../../asset/reservHoraire.css';
 
 
 
@@ -28,9 +27,10 @@ const RerserveForm = (props) => {
     const isLog = props.logInfo.isLog;
     const reservStatus = props.reservationBus.isOK;
     const errorStatus = props.reservationBus.error;
+    const loading = props.reservationBus.loading;
+
     console.log(reservStatus);
     
-
     if(!isLog || errorStatus === 401){
         props.fetchlogout();
         props.setErrorStatus();
@@ -43,6 +43,9 @@ const RerserveForm = (props) => {
     
     return (
         <div>
+            {
+                loading && <i className="fa fas-spinner fa-spin"></i> 
+            }
             <h5>Votre Reservation</h5>
             <div>
                 <p>  Ligne {ligne+1}: {ligneNom} </p>
@@ -50,7 +53,9 @@ const RerserveForm = (props) => {
                 <p>  horaire arrive: {horaire.heureArrivee.substring(11, 19)} </p>
                 <p>  montant : {horaire.montant} fcfa   </p>
                 <form onSubmit={handleSubmit(onSubmit)} >
-                    <button className="btn btn-primary" type="submit"> confirmer </button>
+                    <button className="btn btn-primary" type="submit">
+                         confirmer 
+                    </button>
                 </form>
             </div>
  

@@ -96,3 +96,16 @@ export const LOG_OUT = 'LOG_OUT';
   export const FETCH_SIGNUP_FAILURE = 'FETCH_SIGNUP_FAILURE';
   export const SET_SIGNUP_STATUS = 'SET_SIGNUP_STATUS';
   export const LIMIT_ERROR_MSG = 'LIMIT_ERROR_MSG';
+
+  /**
+   * horaire avec id
+   * 
+   */
+
+   export const FETCH_HORAIRE_VALIDE_REQUEST = 'FETCH_HORAIRE_VALIDE_REQUEST';
+   export const FETCH_HORAIRE_VALIDE_SUCCESS = 'FETCH_HORAIRE_VALIDE_SUCCESS';
+   export const FETCH_HORAIRE_VALIDE_FAILURE = 'FETCH_HORAIRE_VALIDE_FAILURE';
+   export const FETCH_HORAIRE_STATUS = 'FETCH_HORAIRE_STATUS';
+
+  const today = new Date();
+ export const tdate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();

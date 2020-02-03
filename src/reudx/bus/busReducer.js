@@ -9,7 +9,11 @@ import {
      FETCH_BUS_RESERVATION_HISTO_SUCCESS,
      FETCH_BUS_RESERVATION_HISTO_FAILURE,
      SET_RESERVATION_STATUS_FALSE,
-     SET_RENEW_ERROR_STATUS, 
+     SET_RENEW_ERROR_STATUS,
+     FETCH_HORAIRE_VALIDE_REQUEST,
+     FETCH_HORAIRE_VALIDE_SUCCESS,
+     FETCH_HORAIRE_VALIDE_FAILURE,
+     FETCH_HORAIRE_STATUS, 
 } from "../actionsType";
 
 
@@ -135,5 +139,35 @@ export const historiquebusReducer = (state = initialState3, action)=>{
         }
         
         default:return state;
+    }
+}
+
+export const horaireReducer = (state={loading: false, data:[], error: ''}, action) =>{
+    switch (action.type) {
+        case FETCH_HORAIRE_VALIDE_REQUEST: return{
+            ...state,
+            loading: true,
+            data:[],
+            error: ''
+        }
+
+        case FETCH_HORAIRE_VALIDE_SUCCESS: return{
+            loading: false,
+            data: action.payload,
+            error: ''
+        }
+
+        case FETCH_HORAIRE_VALIDE_FAILURE: return{
+            loading: false,
+            data:[],
+            error: action.payload
+        }
+
+        case FETCH_HORAIRE_STATUS: return{
+            loading: false,
+            data:[],
+            error: ''
+        }
+        default: return state;
     }
 }

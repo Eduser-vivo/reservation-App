@@ -46,6 +46,7 @@ class Plat extends React.Component {
         }
         const menu = this.props.location.state.menu;
         const reserOk = this.props.creatReserv.isReserv;
+        const loading = this.props.creatReserv.loading;
 
         console.log(errorStatus);
         if(reserOk){
@@ -82,7 +83,13 @@ class Plat extends React.Component {
 
                 <div className="container" id="platBody">
                     {
-                        (plats.length === 0 || plats === null)?("aucun plat disponible"):(
+                        loading ?( <i className="fa fas-spinner fa-spin"></i> ):(
+
+                        (plats.length === 0 || plats === null)?(
+                            <div id="alert-login">
+                                <span className="alert alert-secondary float-center" role="alert" > aucun plat disponible </span>
+                            </div>
+                        ):(
                           
                             plats.map((plat, index) =>(
                                 <div className="card" id="platBody" key={plat.id}>
@@ -100,7 +107,7 @@ class Plat extends React.Component {
                                     </div>
                                 </div>
                      ))
-                        )
+                        ))
                     }
                 </div>
 
