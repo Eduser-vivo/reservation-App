@@ -52,14 +52,14 @@ const Login = (props) => {
 
     return (
         <Fragment>
-             <div id="ConnexionNavBar">
+             {/* <div id="ConnexionNavBar">
                         <Link to={{pathname:`/`, state:{referer: referer}}}
                              style={{ color: "white", textDecoration: "none" }}
                              className="btn btn-primary" id="backBtn"
                             >
                             <i className="fas fa-long-arrow-alt-left"> </i> retour
                         </Link>
-             </div>
+             </div> */}
             <div className="container" id="formLogin">
                             {
                                 (message === 401)&&(
@@ -77,11 +77,11 @@ const Login = (props) => {
                 <div className="container" id="formContainer">
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <legend id="legendLogin">
-                            <i class="fas fa-user-circle fa-3x"></i><br/>
+                            <i className="fas fa-user-circle fa-3x"></i><br/>
                                { loading && <i className="fas fa-spinner fa-spin" ></i>}
                                 CONNEXION</legend>
-                            <Field name="username" label="Nom d'utilisateur" type="text" placeholder="nom d'utilisateur" component={renderField} />
-                            <Field name="password" label="Mot de passe" type="password" placeholder="mot de passe" component={renderField} />
+                              <Field name="username" label="Nom d'utilisateur" type="text" component={renderField} />
+                            <Field name="password" label="Mot de passe" type="password"  component={renderField} />
                             <button className="btn btn-primary btn-block" type="submit"><i className="fas fa-sign-in-alt "> connexion </i> </button>
                         </form>
                             {

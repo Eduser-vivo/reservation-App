@@ -9,7 +9,8 @@ import {
     FETCH_SIGNUP_REQUEST,
     FETCH_SIGNUP_SUCCESS,
     FETCH_SIGNUP_FAILURE,
-    SET_SIGNUP_STATUS} from "../actionsType"
+    SET_SIGNUP_STATUS,
+    LIMIT_ERROR_MSG} from "../actionsType"
 import {request} from '../request';
 import AuthService from '../../auth/auth'
 import Axios from "axios";
@@ -131,6 +132,12 @@ export const fetchlogout = ()=>{
  export const setSignUpStatus = ()=>{
      return{
          type: SET_SIGNUP_STATUS
+     }
+ }
+
+ export const limitErrorMsg =()=>{
+     return{
+         type: LIMIT_ERROR_MSG
      }
  }
 

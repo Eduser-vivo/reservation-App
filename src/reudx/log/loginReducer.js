@@ -8,7 +8,8 @@ import { FETCH_LOGIN_REQUEST,
       FETCH_SIGNUP_REQUEST,
       FETCH_SIGNUP_SUCCESS,
       FETCH_SIGNUP_FAILURE,
-      SET_SIGNUP_STATUS} from "../actionsType";
+      SET_SIGNUP_STATUS,
+      LIMIT_ERROR_MSG} from "../actionsType";
 import AuthService from '../../auth/auth';
 
 
@@ -129,6 +130,13 @@ export const signUpReducer = (state = {loading : false, data: [], errorStatus : 
             data:[],
             errorMessages: [],
             errorStatus:'',
+            isSign: false
+        }
+
+        case LIMIT_ERROR_MSG: return{
+            ...state,
+            loading: false,
+            errorStatus: '',
             isSign: false
         }
 

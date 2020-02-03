@@ -14,6 +14,7 @@ class Horaires extends React.Component {
         }
 
 
+
         const horaires = this.props.location.state.LigneHoraires;
         const ligne = this.props.location.state.ligne;
         const ligneNom = this.props.location.state.ligneNom;
@@ -36,26 +37,26 @@ class Horaires extends React.Component {
                         (horaires.length === 0 || horaires === null)?("aucun horaire disponible "):(
 
                         horaires.map((horaire, index) =>(
-                            <div className="card" key={horaire.id}>
-                            <div className="card-header">
-                                <u>Horraire {index+1}:</u> {horaire.nom.substring(0, 30 )}
-                            </div>
+                            <div className="card mb-4 mt-4 shadow-sm" key={horaire.id}>
                             <div className="card-body"> 
-                                <div className="ccard-text">
+                                <div className="card-title border-bottom">
+                                    <u>Horraire {index+1}:</u> {horaire.nom.substring(0, 15 )}
+                                </div>
+                                <div className="card-text border-bottom">
                                     <small>heure depart:  {horaire.heureDepart.substring(11, 19)} </small> <br />
                                     <small>heure arrive: {horaire.heureArrivee.substring(11, 19)} </small> <br />
                                     <small>nombre place: {horaire.nombrePlaces} </small> <br />
                                     <small>montant : {horaire.montant} fcfa</small>
                                 </div>
-                            </div>
-                            <div className="card-footer text-center">
-                                <Popup 
-                                    trigger={<button className="btn btn-primary btn-larg">reserver</button>}
-                                    modal
-                                    closeOnDocumentClick
-                                >
-                                       <ReserveForm horaire ={horaire} ligne={ligne} ligneNom ={ligneNom} />
-                                </Popup>
+                                <div className="card-text text-center">
+                                    <Popup 
+                                        trigger={<button className="btn btn-primary btn-block">reserver</button>}
+                                        modal
+                                        closeOnDocumentClick
+                                    >
+                                        <ReserveForm horaire ={horaire} ligne={ligne} ligneNom ={ligneNom} />
+                                    </Popup>
+                                </div>
                             </div>
                         </div> 
                         ))   

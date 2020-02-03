@@ -50,25 +50,25 @@ class Lignes extends Component {
             (lignes.length === 0 || lignes === null)?("aucune ligne active"):(
 
               lignes.map((ligne, index) =>(
-                <div className="card" key={ligne.id}>
-                  <div className="card-header">
-                    <u>Ligne<u></u></u> : {index+1} {ligne.nom.substring(0, 50)}
-                  </div>
+                <div className="card mb-4 mt-4 shadow-sm" key={ligne.id}>
                   <div className="card-body"> 
-                      <div className="card-text">
+                      <div className="card-title border-bottom">
+                        <u>Ligne<u></u></u> : {index+1} {ligne.nom.substring(0, 50)}
+                      </div>
+                      <div className="card-text border-bottom">
                         <small>distance: {ligne.distance} km </small> <br />
                         <small>point depart: {ligne.pointDepart.substring(0, 50)} </small> <br />
                         <small>point arrive: {ligne.pointArrivee.substring(0, 50)}  </small> <br />
-                        <small> {ligne.montant} </small>
+                        <small> {ligne.montant} </small><br/>
                       </div>
-                  </div>
-                  <div className="card-footer">
-                    <Link to={{pathname:`/horaires/${index+1}`, state:{ligne: index, ligneNom: ligne.nom, LigneHoraires:ligne.horaires, referer: "/lignes"}}}
-                        style={{ color: "white", textDecoration: "none" }}
-                        className="btn btn-primary btn-sm btn-block"
-                    >
-                      Les horaires disponibles
-                    </Link>
+                      <div className="card-text">
+                        <Link to={{pathname:`/horaires/${index+1}`, state:{ligne: index, ligneNom: ligne.nom, LigneHoraires:ligne.horaires, referer: "/lignes"}}}
+                            style={{ color: "white", textDecoration: "none" }}
+                            className="btn btn-primary btn-sm btn-block"
+                        >
+                          Les horaires disponibles
+                        </Link>
+                      </div>
                   </div>
               </div> 
               )))  

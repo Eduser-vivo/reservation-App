@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import '../../asset/login.css';
 import { renderField } from '../../reudx/renderForm';
-import { fetchSignUp, setSignUpStatus } from '../../reudx/log/logAction';
+import { fetchSignUp, setSignUpStatus, limitErrorMsg } from '../../reudx/log/logAction';
 import { Link, Redirect } from 'react-router-dom';
 
 
@@ -17,14 +17,19 @@ const mapStateToProps = state =>{
 const mapDispatchToProps = dispatch =>{
     return{
         fetchSignUp: (data)=> dispatch(fetchSignUp(data)),
-        setSignUpStatus: ()=> dispatch(setSignUpStatus())
+        setSignUpStatus: ()=> dispatch(setSignUpStatus()),
+        limitErrorMsg: ()=> dispatch(limitErrorMsg())
     }
 }
 
+
+
 function SignUp(props) {
+
 
     const [confirm, setConfirm] = useState(false);
     const {errorStatus, errorMessages, loading, isSign} = props.SignUp;
+
 
     console.log(errorStatus);
     console.log(errorMessages);
@@ -52,6 +57,7 @@ function SignUp(props) {
         
     }
 
+
     if(isSign){
         props.setSignUpStatus();
         return <Redirect to={{pathname:`/connexion`, state:{referer: `/`}}} />
@@ -67,14 +73,33 @@ function SignUp(props) {
                 {loading && <i className="fas fa-spinner fa-spin" ></i>}
                 INSCRIPTION
             </legend>
-            <Field name="nom" label="Nom" type="text" placeholder="votre nom" component={renderField} />
-            <Field name="prenom" label="Prenom" type="text" placeholder="votre prenom" component={renderField} />
-            <Field name="telephone" label="telephone" type="text" placeholder="votre telephone" component={renderField} />
-            <Field name="username" label="Nom d'utilisateur" type="text" placeholder="votre nom d'utilisateur" component={renderField} />
-            <Field name="email" label="Adresse email" type="email" placeholder="votre adresse email" component={renderField} />
-            <Field name="password" type="password" label="Mot de passe" placeholder="mot de passe" component={renderField} />
-            {confirm && (<span className="badge badge-danger"> erreur de confirmation </span>) }
-            <Field name="confirmation" type="password" label="Confirmation" placeholder="confirmer votre mot de passe" component={renderField} />
+            {
+               (typeof(errorMessages) !== 'undefined' && errorMessages.length !== 0) &&(
+                   <div className="alert alert-danger">
+                       {
+                            errorMessages.map((error, index) =>(
+                                <div key={index} >
+                                    <span > - {error.message} <br/> </span>
+                                </div>
+                            ))
+                       }
+                    </div>
+            )}
+            <Field name="nom" label="Nom" type="text"  component={renderField} />
+            <Field name="prenom" label="Prenom" type="text" component={renderField} />
+            <Field name="telephone" label="telephone" type="text"  component={renderField} />
+            <Field name="username" label="Nom d'utilisateur" type="text" component={renderField} />
+            <Field name="email" label="Adresse email" type="email" component={renderField} />
+            <Field name="password" type="password" label="Mot de passe" component={renderField} />
+
+            {confirm && (
+               <div style={{fontSize:'12px', color:'red'}} >
+                   <span className="badge badge-danger" >erreur</span>
+                   <span>mot de passe non conforme</span>
+               </div> 
+             )}
+
+            <Field name="confirmation" type="password" label="Confirmation" component={renderField} />
 
             <button className="btn btn-primary btn-block" type="submit">
              <i className="fas fa-sign-in-alt "> inscription </i> 

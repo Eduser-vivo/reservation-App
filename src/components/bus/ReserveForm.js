@@ -4,6 +4,7 @@ import { reduxForm } from 'redux-form';
 import { Redirect } from 'react-router';
 import {fetchBusReservation, setErrorStatus} from '../../reudx/bus/busAction';
 import { fetchlogout } from '../../reudx/log/logAction';
+import '../../asset/reservHoraire.css';
 
 
 
@@ -41,7 +42,7 @@ const RerserveForm = (props) => {
     }
     
     return (
-        <div >
+        <div>
             <h5>Votre Reservation</h5>
             <div>
                 <p>  Ligne {ligne+1}: {ligneNom} </p>
